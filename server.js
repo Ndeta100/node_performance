@@ -1,5 +1,4 @@
 const express=require('express')
-const cluster=require('cluster')
 const app=express()
 const port=3000
 app.get('/', (req, res)=>{
@@ -15,16 +14,12 @@ function delay(duration){
 console.log('Running server.js')
 app.get('/timer', (req,res)=>{
     //delay the respond
-      delay(9000)
-    res.send(`ding ding ding ${process.pid}`)
+      delay(4000)
+    res.send(`beep beep beep ${process.pid}`)
 })
-if(cluster.isMaster){
-    console.log('Master has been started')
-    cluster.fork()
-    cluster.fork()
-}else{
+
     console.log('Worker process started')
     app.listen(port,()=>{
         console.log('app listening on port ' + port)
     })
-}
+
